@@ -8,5 +8,6 @@ class LinearRegression(nn.Module):
         self.linear = torch.nn.Linear(input_size, output_size)
 
     def forward(self, x):
-        out = self.linear(x)
+        out = torch.sigmoid(self.linear(x))
+        #out = self.linear(x)
         return out
