@@ -1,30 +1,13 @@
 import torch
 import numpy as np
+import pandas as pd
 from torch.autograd import Variable
-from MultiLayerPerceptron import MultiLayerPerceptron
 import matplotlib.pyplot as plt
+from MultiLayerPerceptron import MultiLayerPerceptron
 
-x_values = [[1, 2], [1.5, 2.5], [2, 3], [5, 6], [8, 9],
-            [5, 5], [6, 9], [1, 1], [1, 4], [1, 8],
-            [1.5, 6], [4, 2], [3, 4], [6, 1], [8, 2],
-            [4, 6], [4, 8], [4, 9], [3, 9], [6.5, 4],
-            [6, 6], [8, 6], [9, 1], [9, 4], [5, 7],
-            [7, 7], [0.5, 9], [1, 7], [8, 3], [8, 1],
-            [0.8, 9], [5, 3.5], [6, 2], [4, 5], [3, 7],
-            [3.8, 2.8], [5, 9], [9.5, 6]]
-
-y_values = [1, 1, 1, 0, 1,
-            0, 1, 1, 1, 1,
-            1, 1, 1, 1, 0,
-            0, 1, 1, 1, 0,
-            0, 0, 1, 1, 0,
-            0, 1, 1, 0, 1,
-            1, 0, 0, 0, 1,
-            0, 1, 1]
-
-x_train = np.array(x_values, dtype=np.float32)
-x_train = x_train.reshape(-1, 2)
-y_train = np.array(y_values, dtype=np.float32)
+data_sheet = pd.read_csv("database_test/classification_data.csv")
+x_train = pd.DataFrame.to_numpy(data_sheet.loc[:, 'x1':'x2'], dtype=np.float32)
+y_train = pd.DataFrame.to_numpy(data_sheet.loc[:, 'y':'y'], dtype=np.float32)
 y_train = y_train.reshape(-1, 1)
 
 inputDim = 2
@@ -69,11 +52,12 @@ for i in range(heat_map_resolution):
 
 zero_values = []
 one_values = []
-for i in range(len(y_values)):
-    if y_values[i] == 0:
-        zero_values.append(x_values[i])
+for i in range(len(y_train)):
+    if y_train[i] == 0:
+        zero_values.append(x_train[i])
     else:
-        one_values.append(x_values[i])
+        one_values.append(x_train[i])
+
 x_train0 = np.array(zero_values, dtype=np.float32)
 x_train0 = x_train0.reshape(-1, 2)
 x_train1 = np.array(one_values, dtype=np.float32)

@@ -44,7 +44,7 @@ test = [1, 2]
 test_data = np.array(test, dtype=np.float32)
 
 with torch.no_grad():
-    border = model(Variable(torch.from_numpy(test_data))).data.numpy()
+    border = model(Variable(torch.from_numpy(test_data))).data_sheet.numpy()
     print(border)
 
 heat_map_resolution = 200
@@ -52,10 +52,10 @@ heat_map_data = np.zeros((heat_map_resolution, heat_map_resolution))
 for i in range(heat_map_resolution):
     for j in range(heat_map_resolution):
         current = np.array([i * 10 / heat_map_resolution, j * 10 / heat_map_resolution], dtype=np.float32)
-        heat_map_data[i, j] = model(torch.from_numpy(current)).data.numpy()[0]
+        heat_map_data[i, j] = model(torch.from_numpy(current)).data_sheet.numpy()[0]
 
 plt.clf()
-plt.plot(x_train[:, 0] * heat_map_resolution / 10, x_train[:, 1] * heat_map_resolution / 10, '.')#, label='data', alpha=0.5)
+plt.plot(x_train[:, 0] * heat_map_resolution / 10, x_train[:, 1] * heat_map_resolution / 10, '.')#, label='data_sheet', alpha=0.5)
 plt.ylim(0, heat_map_resolution)
 plt.imshow(heat_map_data, cmap='BuGn')
 plt.colorbar()
