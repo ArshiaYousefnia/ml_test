@@ -18,3 +18,8 @@ class MultiLayerPerceptron(nn.Module):
         output2 = torch.sigmoid(self.linear2(output1))
         output3 = torch.sigmoid(self.linear3(output2))
         return output3
+
+test_model = MultiLayerPerceptron(2)
+
+for i in test_model.parameters():
+    print(i)
