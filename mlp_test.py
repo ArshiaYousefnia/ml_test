@@ -11,16 +11,16 @@ x_values = [[1, 2], [1.5, 2.5], [2, 3], [5, 6], [8, 9],
             [6, 6], [8, 6], [9, 1], [9, 4], [5, 7],
             [7, 7], [0.5, 9], [1, 7], [8, 3], [8, 1],
             [0.8, 9], [5, 3.5], [6, 2], [4, 5], [3, 7],
-            [3.8, 2.8]]
+            [3.8, 2.8], [5, 9], [9.5, 6]]
 
-y_values = [1, 1, 1, 0, 0,
-            0, 0, 1, 1, 1,
+y_values = [1, 1, 1, 0, 1,
+            0, 1, 1, 1, 1,
             1, 1, 1, 1, 0,
             0, 1, 1, 1, 0,
-            0, 0, 1, 0, 0,
+            0, 0, 1, 1, 0,
             0, 1, 1, 0, 1,
             1, 0, 0, 0, 1,
-            0]
+            0, 1, 1]
 
 x_train = np.array(x_values, dtype=np.float32)
 x_train = x_train.reshape(-1, 2)
@@ -28,12 +28,12 @@ y_train = np.array(y_values, dtype=np.float32)
 y_train = y_train.reshape(-1, 1)
 
 inputDim = 2
-learningRate = 0.2
-epochs = 4000
+learningRate = 0.22
+epochs = 11000
 
 model = MultiLayerPerceptron(inputDim)
 criterion = torch.nn.BCELoss()
-optimizer = torch.optim.SGD(model.parameters(), lr=learningRate)
+optimizer = torch.optim.SGD(model.parameters(), lr=learningRate, weight_decay=0.0001)
 
 losses = []
 
